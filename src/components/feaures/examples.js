@@ -1,5 +1,5 @@
-import Clock from './clock'
-import Counter from './counter'
+import Clock from "./clock"
+import Counter from "./counter"
 
 const Examples = () => {
   return (
