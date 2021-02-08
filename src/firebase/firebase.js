@@ -1,3 +1,5 @@
+import firebase from "firebase"
+
 var firebaseConfig = {
   apiKey: "AIzaSyDgXdlNhD8TQUerJz54vDyufMgsAsZLk-o",
   authDomain: "nextflix-cone.firebaseapp.com",
@@ -7,4 +9,11 @@ var firebaseConfig = {
   appId: "1:608326695954:web:658da3d08c146ac066eccb",
 }
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig)
+!firebase.apps.length && firebase.initializeApp(firebaseConfig)
+
+const db = firebase.firestore()
+const auth = firebase.auth()
+
+export { auth }
+
+export default db

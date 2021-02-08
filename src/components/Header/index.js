@@ -1,7 +1,32 @@
 import { useState, useEffect } from "react"
+import { auth } from "../../firebase/firebase"
+import { useDispatch, useSelector } from "react-redux"
+import { signIn, signout } from "../../redux/actions"
+import { useRouter } from "next/router"
 
 const Header = props => {
+  const router = useRouter()
+  const dispatch = useDispatch()
   const [show, setShow] = useState(false)
+  const { user } = useSelector(state => state.user)
+
+  useEffect(() => {
+    const unsuscribe = auth.onAuthStateChanged(userAuth => {
+      if (userAuth) {
+        console.log(userAuth)
+        dispatch(
+          signIn({
+            uid: userAuth.uid,
+            email: userAuth.email,
+          })
+        )
+      } else {
+        dispatch(signout())
+        router.push("/login")
+      }
+    })
+    return unsuscribe
+  }, [dispatch])
 
   const transitionHeaderBar = () => {
     if (window.scrollY > 100) {
@@ -20,13 +45,15 @@ const Header = props => {
     <div className={`header ${show && "header_black"}`}>
       <div className="header_contents">
         <img
+          onClick={() => router.push("/")}
           className="header_logo"
           src="https://logos-world.net/wp-content/uploads/2020/04/Netflix-Logo.png"
           alt=""
         />
         <img
+          onClick={() => router.push("/profile")}
           className="header_avatar"
-          src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/bb3a8833850498.56ba69ac33f26.png"
+          src="https://i.pinimg.com/originals/10/12/c0/1012c06c7e1b0f8f5e60611992785e5a.png"
           alt=""
         />
       </div>
