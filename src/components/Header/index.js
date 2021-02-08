@@ -47,7 +47,7 @@ const Header = props => {
         <img
           onClick={() => router.push("/")}
           className="header_logo"
-          src="https://logos-world.net/wp-content/uploads/2020/04/Netflix-Logo.png"
+          src="https://static.wikia.nocookie.net/logopedia/images/5/5d/Netflix_2014.svg"
           alt=""
         />
         <img
