@@ -10,9 +10,6 @@ const Header = props => {
   const [show, setShow] = useState(false)
   const { role } = useSelector(state => state.user)
 
-  console.log("Aqui!!!!!!!!!!!!!")
-  console.log(role)
-
   useEffect(() => {
     const unsuscribe = auth.onAuthStateChanged(userAuth => {
       if (role === null) {
