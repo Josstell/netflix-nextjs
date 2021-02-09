@@ -12,7 +12,7 @@ const userReducer = (state = initialState, { type, payload }) => {
     case types.LOGIN:
       return {
         email: payload.email,
-        uid: payload.email,
+        uid: payload.uid,
       }
     case types.LOGOUT:
       return {

@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux"
 
-import Header from "@components/Header"
 import { auth } from "src/firebase/firebase"
+import PlanScreen from "@components/PlanScreen"
+import Header from "@components/Header"
 
 const Profile = () => {
   const { email, uid } = useSelector(state => state.user)
@@ -20,6 +21,7 @@ const Profile = () => {
             <h2>{email}</h2>
             <div className="profile_plans">
               <h3>Plans</h3>
+              <PlanScreen />
               <button
                 onClick={() => auth.signOut()}
                 className="profile_signout"
