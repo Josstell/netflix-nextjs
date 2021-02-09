@@ -5,7 +5,10 @@ import PlanScreen from "@components/PlanScreen"
 import Header from "@components/Header"
 
 const Profile = () => {
-  const { email, uid } = useSelector(state => state.user)
+  const { email, uid, role } = useSelector(state => state.user)
+
+  console.log("perrrroooo")
+  console.log(role)
 
   return (
     <div className="profile">
@@ -20,7 +23,7 @@ const Profile = () => {
           <div className="profile_details">
             <h2>{email}</h2>
             <div className="profile_plans">
-              <h3>Plans</h3>
+              <h3>Plans {role && <span>(current plan: {role})</span>}</h3>
               <PlanScreen />
               <button
                 onClick={() => auth.signOut()}
@@ -90,6 +93,9 @@ const Profile = () => {
           font-weight: 600;
           border: none;
           cursor: pointer;
+        }
+        span {
+          font-weight: 400;
         }
       `}</style>
     </div>

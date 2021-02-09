@@ -8,10 +8,17 @@ const Header = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
-  const { user } = useSelector(state => state.user)
+  const { role } = useSelector(state => state.user)
+
+  console.log("Aqui!!!!!!!!!!!!!")
+  console.log(role)
 
   useEffect(() => {
     const unsuscribe = auth.onAuthStateChanged(userAuth => {
+      if (role === null) {
+        router.push("/profile")
+      }
+
       if (userAuth) {
         console.log(userAuth)
         dispatch(

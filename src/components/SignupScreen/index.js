@@ -16,7 +16,7 @@ const SignupScreen = () => {
       )
       .then(authUser => {
         // console.log(authUser)
-        router.push("/")
+        router.push("/login")
       })
       .catch(err => alert(err.message))
   }

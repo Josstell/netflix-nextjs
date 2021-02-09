@@ -1,30 +1,45 @@
 import React, { useState, useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { role } from "../../redux/actions"
 
 import db from "../../firebase/firebase"
 import { loadStripe } from "@stripe/stripe-js"
 
 const PlanScreem = () => {
+  const dispatch = useDispatch()
   const [products, setProducts] = useState([])
   const { email, uid } = useSelector(state => state.user)
   const [subscription, setSubscritption] = useState(null)
 
   useEffect(() => {
-    db.collection("customers")
-      .doc(uid)
-      .collection("subscriptions")
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(async subscription => {
-          setSubscritption({
-            role: subscription.data().role,
-            current_period_end: subscription.data().current_period_end.seconds,
-            current_period_start: subscription.data().current_period_start
-              .seconds,
+    if (uid) {
+      db.collection("customers")
+        .doc(uid)
+        .collection("subscriptions")
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(async subscription => {
+            setSubscritption({
+              role: subscription.data().role,
+              current_period_end: subscription.data().current_period_end
+                .seconds,
+              current_period_start: subscription.data().current_period_start
+                .seconds,
+            })
           })
         })
-      })
+    }
   }, [uid])
+
+  useEffect(() => {
+    if (subscription) {
+      dispatch(
+        role({
+          role: subscription.role,
+        })
+      )
+    }
+  }, [subscription])
 
   useEffect(() => {
     db.collection("products")
@@ -82,8 +97,7 @@ const PlanScreem = () => {
     })
   }
 
-  console.log(products)
-  console.log(subscription)
+  //current plan:
   return (
     <div className="planScreen">
       <br />

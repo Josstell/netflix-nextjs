@@ -8,3 +8,9 @@ export const signIn = ({ uid, email }) => ({
 
 // SIGN OUT
 export const signout = () => ({ type: types.LOGOUT })
+
+// SIGN OUT
+export const role = ({ role }) => ({
+  type: types.ROLE,
+  payload: { role },
+})
